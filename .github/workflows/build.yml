@@ -25,14 +25,14 @@ jobs:
 
       - name: get short commit sha
         run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-      - name: rename jar with commit id
+        
+      - name: rename all jars with commit id
         run: |
           SHORT_SHA=${{ env.SHORT_SHA }}
-          ORIGINAL_JAR=$(ls build/libs/*.jar | head -n 1)
-          BASENAME=$(basename "$ORIGINAL_JAR" .jar)
-          RENAMED_JAR="build/libs/${BASENAME}-${SHORT_SHA}.jar"
-          mv "$ORIGINAL_JAR" "$RENAMED_JAR"
+          for jar in build/libs/*.jar; do
+            BASENAME=$(basename "$jar" .jar)
+            mv "$jar" "build/libs/${BASENAME}-${SHORT_SHA}.jar"
+          done
 
       - name: capture build artifacts
         uses: actions/upload-artifact@v4
