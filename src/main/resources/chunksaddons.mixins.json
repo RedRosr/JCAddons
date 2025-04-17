@@ -6,7 +6,8 @@
 		"MinecraftClientMixin",
 		"BossBarHudAccessor",
 		"BossBarHudInvoker",
-		"BossBarHudMixin"
+		"BossBarHudMixin",
+		"GameRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
