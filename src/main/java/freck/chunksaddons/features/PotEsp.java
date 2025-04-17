@@ -140,4 +140,8 @@ public class PotEsp {
         return stream;
     }
 
+    public int getPots() {
+        return blockEntities.size();
+    }
+
 }

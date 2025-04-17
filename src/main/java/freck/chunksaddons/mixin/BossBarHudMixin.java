@@ -68,6 +68,14 @@ public class BossBarHudMixin {
         }
         Utils.inDungeon = matched;
 
+        if (Utils.inDungeon && ChunksAddons.potEsp.getPots() != 0) {
+            // Render custom Bar for amount of pots left.
+            int textWidth = client.textRenderer.getWidth("Pots left: " + ChunksAddons.potEsp.getPots());
+            int textX = screenWidth / 2 - textWidth / 2;
+            int textY = y - 9;
+            context.drawTextWithShadow(client.textRenderer, "Pots left: " + ChunksAddons.potEsp.getPots(), textX, textY, 0xA8A8A8);
+        }
+
         profiler.pop();
         ci.cancel();
     }

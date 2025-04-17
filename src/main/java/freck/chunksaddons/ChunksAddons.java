@@ -13,7 +13,7 @@ public class ChunksAddons implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static MinecraftClient minecraftClient;
 
-	private static PotEsp potEsp;
+	public static PotEsp potEsp;
 
 	@Override
 	public void onInitialize() {
