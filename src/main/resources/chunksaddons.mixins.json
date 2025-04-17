@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "freck.chunksaddons.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"BossBarHudAccessor",
+		"BossBarHudInvoker",
+		"BossBarHudMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
