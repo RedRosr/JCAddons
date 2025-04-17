@@ -1,6 +1,8 @@
 package freck.chunksaddons.mixin;
 
 import freck.chunksaddons.ChunksAddons;
+import freck.chunksaddons.util.DungeonType;
+import freck.chunksaddons.util.Utils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
@@ -31,12 +33,23 @@ public class BossBarHudMixin {
         int screenWidth = context.getScaledWindowWidth();
         int y = 12;
 
+        boolean matched = false;
+
         for (ClientBossBar bossBar : getBossBars(self).values()) {
             String name = bossBar.getName().getString();
 
             if (name.equals("Already voted? Use /vote!")) {
                 continue;
             }
+
+            for (DungeonType type : DungeonType.values()) {
+                if (name.contains(type.getNameFallback())) {
+                    Utils.inDungeon = true;
+                    matched = true;
+                    break;
+                }
+            }
+
 
             int x = screenWidth / 2 - 91;
             ((BossBarHudInvoker) self).callRenderBossBar(context, x, y, bossBar);
@@ -53,6 +66,7 @@ public class BossBarHudMixin {
                 break;
             }
         }
+        Utils.inDungeon = matched;
 
         profiler.pop();
         ci.cancel();

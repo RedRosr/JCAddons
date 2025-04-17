@@ -3,6 +3,7 @@ package freck.chunksaddons.features;
 import com.mojang.blaze3d.systems.RenderSystem;
 import freck.chunksaddons.util.RegionPos;
 import freck.chunksaddons.util.RenderUtils;
+import freck.chunksaddons.util.Utils;
 import net.minecraft.block.entity.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlUsage;
@@ -36,7 +37,6 @@ public class PotEsp {
     public void onUpdate() {
         if (client.world == null || client.player == null) return; // Check for null player
         if (client.player.age % 3 != 0) return;
-
         blockEntities.clear();
 
 
@@ -56,6 +56,7 @@ public class PotEsp {
 
     public void onRender(MatrixStack matrixStack, float renderTickCounter) {
         if (client.player == null || !initialized) return; // Ensure player exists before rendering
+        if (!Utils.inDungeon) return;
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
