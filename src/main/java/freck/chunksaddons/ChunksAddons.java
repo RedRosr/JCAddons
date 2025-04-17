@@ -2,7 +2,6 @@ package freck.chunksaddons;
 
 import freck.chunksaddons.features.PotEsp;
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import org.slf4j.Logger;
