@@ -29,15 +29,10 @@ jobs:
       - name: rename jar with commit id
         run: |
           SHORT_SHA=${{ env.SHORT_SHA }}
-          JAR_BASENAME=chunkaddons-1.0.0
-          ORIGINAL_JAR="build/libs/${JAR_BASENAME}.jar"
-          RENAMED_JAR="build/libs/${JAR_BASENAME}-${SHORT_SHA}.jar"
-          if [ -f "$ORIGINAL_JAR" ]; then
-            mv "$ORIGINAL_JAR" "$RENAMED_JAR"
-          else
-            echo "Jar not found: $ORIGINAL_JAR"
-            exit 1
-          fi
+          ORIGINAL_JAR=$(ls build/libs/*.jar | head -n 1)
+          BASENAME=$(basename "$ORIGINAL_JAR" .jar)
+          RENAMED_JAR="build/libs/${BASENAME}-${SHORT_SHA}.jar"
+          mv "$ORIGINAL_JAR" "$RENAMED_JAR"
 
       - name: capture build artifacts
         uses: actions/upload-artifact@v4
