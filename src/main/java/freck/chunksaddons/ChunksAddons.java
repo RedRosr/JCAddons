@@ -1,6 +1,7 @@
 package freck.chunksaddons;
 
-import freck.chunksaddons.features.PotEsp;
+import freck.chunksaddons.features.Pots.PotActionBar;
+import freck.chunksaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,6 +14,7 @@ public class ChunksAddons implements ModInitializer {
 	public static MinecraftClient minecraftClient;
 
 	public static PotEsp potEsp;
+	public static PotActionBar potActionBar;
 
 	@Override
 	public void onInitialize() {
@@ -20,12 +22,13 @@ public class ChunksAddons implements ModInitializer {
 		minecraftClient = MinecraftClient.getInstance();
 
 		potEsp = new PotEsp(minecraftClient);
+		potActionBar = new PotActionBar(minecraftClient);
 	}
 
 	public static void onTick() {
 		if (minecraftClient.player == null || minecraftClient.world == null) return;
-
 		potEsp.onUpdate();
+		potActionBar.onUpdate();
 	}
 
 	public static void onRender(MatrixStack matrixStack, float renderTickCounter) {
