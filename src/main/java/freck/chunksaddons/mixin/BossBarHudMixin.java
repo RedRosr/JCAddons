@@ -1,5 +1,6 @@
 package freck.chunksaddons.mixin;
 
+import freck.chunksaddons.ChunksAddons;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
@@ -20,7 +21,7 @@ public class BossBarHudMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void filterBossBars(DrawContext context, CallbackInfo ci) {
         BossBarHud self = (BossBarHud)(Object)this;
-        MinecraftClient client = MinecraftClient.getInstance();
+        MinecraftClient client = ChunksAddons.minecraftClient;
 
         if (client == null) return;
 
