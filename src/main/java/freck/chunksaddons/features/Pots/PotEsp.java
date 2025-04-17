@@ -1,4 +1,4 @@
-package freck.chunksaddons.features;
+package freck.chunksaddons.features.Pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import freck.chunksaddons.util.RegionPos;
@@ -36,7 +36,6 @@ public class PotEsp {
 
     public void onUpdate() {
         if (client.world == null || client.player == null) return; // Check for null player
-        if (client.player.age % 3 != 0) return;
         blockEntities.clear();
 
 
