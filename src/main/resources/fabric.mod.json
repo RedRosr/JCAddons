@@ -5,7 +5,8 @@
 	"name": "ChunksAddons",
 	"description": "This mod contains features for the minecraft server JustChunks",
 	"authors": [
-		"freck"
+		"freck",
+		"Himeji"
 	],
 	"license": "CC0-1.0",
 	"icon": "assets/chunksaddons/icon.png",
@@ -24,7 +25,5 @@
 		"java": ">=21",
 		"fabric-api": "*"
 	},
-	"suggests": {
-		"another-mod": "*"
-	}
+	"suggests": {}
 }

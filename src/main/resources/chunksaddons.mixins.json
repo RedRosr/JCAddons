@@ -3,6 +3,7 @@
 	"package": "freck.chunksaddons.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"MinecraftClientMixin",
 		"BossBarHudAccessor",
 		"BossBarHudInvoker",
 		"BossBarHudMixin"
