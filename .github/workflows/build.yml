@@ -7,17 +7,33 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
+
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
+
       - name: setup jdk
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'microsoft'
+
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
+
       - name: build
         run: ./gradlew build
+
+      - name: get short commit sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        
+      - name: rename all jars with commit id
+        run: |
+          SHORT_SHA=${{ env.SHORT_SHA }}
+          for jar in build/libs/*.jar; do
+            BASENAME=$(basename "$jar" .jar)
+            mv "$jar" "build/libs/${BASENAME}-${SHORT_SHA}.jar"
+          done
+
       - name: capture build artifacts
         uses: actions/upload-artifact@v4
         with:
