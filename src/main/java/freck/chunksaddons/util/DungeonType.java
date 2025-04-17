@@ -7,7 +7,8 @@ public enum DungeonType {
     NETHER_FORTRESS("Nether Fortress"),
     ILLAGER_PALACE("Illager Palace"),
     ICE_CAVES("Ice Caves"),
-    VAMPIRE_VILLAGE("Vampire Village");
+    VAMPIRE_VILLAGE("Vampire Village"),
+    CHALLENGE("Challenge");
 
     private final String nameFallback;
 
