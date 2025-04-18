@@ -1,26 +1,28 @@
 {
 	"schemaVersion": 1,
-	"id": "chunksaddons",
+	"id": "jcaddons",
 	"version": "${version}",
-	"name": "ChunksAddons",
+	"name": "JCAddons",
 	"description": "This mod contains features for the minecraft server JustChunks",
 	"authors": [
 		"freck",
 		"Himeji"
 	],
 	"license": "CC0-1.0",
-	"icon": "assets/chunksaddons/icon.png",
+	"icon": "assets/jcaddons/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [ "freck.chunksaddons.ChunksAddons" ],
-		"modmenu": ["freck.chunksaddons.Config.ModMenuIntegration"]
+		"main": [
+			"redrosr.jcaddons.JCAddons"
+		],
+		"modmenu": ["redrosr.jcaddons.Config.ModMenuIntegration"]
 	},
 	"mixins": [
-		"chunksaddons.mixins.json"
+		"jcaddons.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.12",
-		"minecraft": "~1.21.4",
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
 		"java": ">=21",
 		"fabric-api": "*",
 		"yet_another_config_lib_v3": ">=3.6.6"

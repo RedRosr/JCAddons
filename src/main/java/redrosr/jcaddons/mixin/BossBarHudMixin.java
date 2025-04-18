@@ -1,9 +1,9 @@
-package freck.chunksaddons.mixin;
+package redrosr.jcaddons.mixin;
 
-import freck.chunksaddons.ChunksAddons;
-import freck.chunksaddons.Config.Config;
-import freck.chunksaddons.util.DungeonType;
-import freck.chunksaddons.util.Utils;
+import redrosr.jcaddons.JCAddons;
+import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.util.DungeonType;
+import redrosr.jcaddons.util.Utils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
@@ -24,7 +24,7 @@ public class BossBarHudMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void filterBossBars(DrawContext context, CallbackInfo ci) {
         BossBarHud self = (BossBarHud)(Object)this;
-        MinecraftClient client = ChunksAddons.minecraftClient;
+        MinecraftClient client = JCAddons.minecraftClient;
 
         if (client == null) return;
 
@@ -70,12 +70,12 @@ public class BossBarHudMixin {
         }
         Utils.inDungeon = matched;
 
-        if (Utils.inDungeon && ChunksAddons.potEsp.getPots() != 0) {
+        if (Utils.inDungeon && JCAddons.potEsp.getPots() != 0) {
             // Render custom Bar for amount of pots left.
-            int textWidth = client.textRenderer.getWidth("Pots left: " + ChunksAddons.potEsp.getPots());
+            int textWidth = client.textRenderer.getWidth("Pots left: " + JCAddons.potEsp.getPots());
             int textX = screenWidth / 2 - textWidth / 2;
             int textY = y - 9;
-            context.drawTextWithShadow(client.textRenderer, "Pots left: " + ChunksAddons.potEsp.getPots(), textX, textY, 0xA8A8A8);
+            context.drawTextWithShadow(client.textRenderer, "Pots left: " + JCAddons.potEsp.getPots(), textX, textY, 0xA8A8A8);
         }
 
         profiler.pop();

@@ -1,4 +1,4 @@
-package freck.chunksaddons.util;
+package redrosr.jcaddons.util;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;

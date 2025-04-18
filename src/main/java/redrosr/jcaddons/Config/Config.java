@@ -1,11 +1,11 @@
-package freck.chunksaddons.Config;
+package redrosr.jcaddons.Config;
 
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.AutoGen;
 import dev.isxander.yacl3.config.v2.api.autogen.Boolean;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
-import freck.chunksaddons.ChunksAddons;
+import redrosr.jcaddons.JCAddons;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
@@ -13,9 +13,9 @@ import net.minecraft.util.Identifier;
 
 public class Config {
     public static final ConfigClassHandler<Config> HANDLER = ConfigClassHandler.createBuilder(Config.class)
-        .id(Identifier.of(ChunksAddons.MOD_ID, "config")) // unique ID for your config
+        .id(Identifier.of(JCAddons.MOD_ID, "config")) // unique ID for your config
         .serializer(config -> GsonConfigSerializerBuilder.create(config)
-            .setPath(FabricLoader.getInstance().getConfigDir().resolve(ChunksAddons.MOD_ID + ".json5"))
+            .setPath(FabricLoader.getInstance().getConfigDir().resolve(JCAddons.MOD_ID + ".json5"))
             .setJson5(true) // json5 support, with GSON!
             .build())
         .build();

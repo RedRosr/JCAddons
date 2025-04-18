@@ -1,4 +1,4 @@
-package freck.chunksaddons.util;
+package redrosr.jcaddons.util;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;

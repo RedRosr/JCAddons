@@ -1,10 +1,10 @@
-package freck.chunksaddons.features.Pots;
+package redrosr.jcaddons.features.Pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import freck.chunksaddons.Config.Config;
-import freck.chunksaddons.util.RegionPos;
-import freck.chunksaddons.util.RenderUtils;
-import freck.chunksaddons.util.Utils;
+import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.util.RegionPos;
+import redrosr.jcaddons.util.RenderUtils;
+import redrosr.jcaddons.util.Utils;
 import net.minecraft.block.entity.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlUsage;

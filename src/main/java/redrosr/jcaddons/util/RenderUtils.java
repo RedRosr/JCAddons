@@ -1,7 +1,7 @@
-package freck.chunksaddons.util;
+package redrosr.jcaddons.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import freck.chunksaddons.ChunksAddons;
+import redrosr.jcaddons.JCAddons;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
@@ -110,14 +110,14 @@ public class RenderUtils {
     }
 
     public static Vec3d getCameraPos() {
-        Camera camera = ChunksAddons.minecraftClient.getBlockEntityRenderDispatcher().camera;
+        Camera camera = JCAddons.minecraftClient.getBlockEntityRenderDispatcher().camera;
         if (camera == null) return Vec3d.ZERO;
 
         return camera.getPos();
     }
 
     public static BlockPos getCameraBlockPos() {
-        Camera camera = ChunksAddons.minecraftClient.getBlockEntityRenderDispatcher().camera;
+        Camera camera = JCAddons.minecraftClient.getBlockEntityRenderDispatcher().camera;
         if (camera == null) return BlockPos.ORIGIN;
 
         return camera.getBlockPos();

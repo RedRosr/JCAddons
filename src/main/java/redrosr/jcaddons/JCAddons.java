@@ -1,8 +1,8 @@
-package freck.chunksaddons;
+package redrosr.jcaddons;
 
-import freck.chunksaddons.Config.Config;
-import freck.chunksaddons.features.Pots.PotActionBar;
-import freck.chunksaddons.features.Pots.PotEsp;
+import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.features.Pots.PotActionBar;
+import redrosr.jcaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 
 
-public class ChunksAddons implements ModInitializer {
-	public static final String MOD_ID = "chunksaddons";
+public class JCAddons implements ModInitializer {
+	public static final String MOD_ID = "jcaddons";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static MinecraftClient minecraftClient;
 
@@ -23,7 +23,7 @@ public class ChunksAddons implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Initializing ChunksAddons");
+		LOGGER.info("Initializing JCAddons");
 		minecraftClient = MinecraftClient.getInstance();
 
 		Config.HANDLER.load();
@@ -47,7 +47,7 @@ public class ChunksAddons implements ModInitializer {
 
 	public static void registerCommands() {
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-			dispatcher.register(ClientCommandManager.literal("ca").executes(context -> {
+			dispatcher.register(ClientCommandManager.literal("jcaddons").executes(context -> {
 				MinecraftClient.getInstance().send(() -> {
 					minecraftClient.setScreen(Config.createScreen(context.getSource().getClient().currentScreen));
 				});

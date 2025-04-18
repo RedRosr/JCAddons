@@ -1,4 +1,4 @@
-package freck.chunksaddons.mixin;
+package redrosr.jcaddons.mixin;
 
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;

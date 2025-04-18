@@ -1,6 +1,6 @@
-package freck.chunksaddons.mixin;
+package redrosr.jcaddons.mixin;
 
-import freck.chunksaddons.ChunksAddons;
+import redrosr.jcaddons.JCAddons;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +12,7 @@ public class MinecraftClientMixin {
 
     @Inject(method="tick", at=@At("HEAD"))
     private void onTick(CallbackInfo ci) {
-        ChunksAddons.onTick();
+        JCAddons.onTick();
     }
 
 }

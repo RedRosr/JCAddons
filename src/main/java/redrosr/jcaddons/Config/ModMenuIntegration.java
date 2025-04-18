@@ -1,4 +1,4 @@
-package freck.chunksaddons.Config;
+package redrosr.jcaddons.Config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

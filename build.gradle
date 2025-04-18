@@ -38,7 +38,7 @@ repositories {
 loom {
 
 	mods {
-		"chunksaddons" {
+		"jcaddons" {
 			sourceSet sourceSets.main
 		}
 	}

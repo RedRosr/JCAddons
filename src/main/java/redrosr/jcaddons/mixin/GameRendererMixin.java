@@ -1,7 +1,7 @@
-package freck.chunksaddons.mixin;
+package redrosr.jcaddons.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import freck.chunksaddons.ChunksAddons;
+import redrosr.jcaddons.JCAddons;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
@@ -25,6 +25,6 @@ public class GameRendererMixin {
     {
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.multiplyPositionMatrix(matrix4f3);
-        ChunksAddons.onRender(matrixStack, tickDelta);
+        JCAddons.onRender(matrixStack, tickDelta);
     }
 }

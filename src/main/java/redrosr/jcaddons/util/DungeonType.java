@@ -1,4 +1,4 @@
-package freck.chunksaddons.util;
+package redrosr.jcaddons.util;
 
 public enum DungeonType {
     OLD_VAULT("Old Vault"),
