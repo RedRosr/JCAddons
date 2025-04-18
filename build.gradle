@@ -16,7 +16,13 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-	maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
+	maven {
+		url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
+	}
+	maven {
+		name 'Xander Maven'
+		url 'https://maven.isxander.dev/releases'
+	}
 }
 
 
@@ -41,14 +47,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// moduleName is based on your mod loader and minecraft version, see the table above
-	// version is the DevAuth version you are adding, check releases on GitHub or the badge above
-	// With loom use the modRuntimeOnly configuration
-	// With archloom and the forge-legacy module use the runtimeOnly configuration to avoid warnings
-	// With ForgeGradle 5 or NeoGradle, use the runtimeOnly configuration
-	// With ForgeGradle 2, use the implementation configuration as runtimeOnly appears to be broken
 	modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
-	
+	modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
 }
 
 processResources {
