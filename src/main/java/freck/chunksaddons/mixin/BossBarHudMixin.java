@@ -1,6 +1,7 @@
 package freck.chunksaddons.mixin;
 
 import freck.chunksaddons.ChunksAddons;
+import freck.chunksaddons.Config.Config;
 import freck.chunksaddons.util.DungeonType;
 import freck.chunksaddons.util.Utils;
 import net.minecraft.client.MinecraftClient;
@@ -38,10 +39,11 @@ public class BossBarHudMixin {
         for (ClientBossBar bossBar : getBossBars(self).values()) {
             String name = bossBar.getName().getString();
 
-            if (name.equals("Already voted? Use /vote!")) {
+            if (name.equals("Already voted? Use /vote!") && Config.get().RemoveAds) {
                 continue;
             }
 
+            // Check if player is in a dungeon
             for (DungeonType type : DungeonType.values()) {
                 if (name.contains(type.getNameFallback())) {
                     Utils.inDungeon = true;

@@ -1,5 +1,6 @@
 package freck.chunksaddons;
 
+import freck.chunksaddons.Config.Config;
 import freck.chunksaddons.features.Pots.PotActionBar;
 import freck.chunksaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
@@ -21,12 +22,15 @@ public class ChunksAddons implements ModInitializer {
 		LOGGER.info("Initializing ChunksAddons");
 		minecraftClient = MinecraftClient.getInstance();
 
+		Config.HANDLER.load();
+
 		potEsp = new PotEsp(minecraftClient);
 		potActionBar = new PotActionBar(minecraftClient);
 	}
 
 	public static void onTick() {
 		if (minecraftClient.player == null || minecraftClient.world == null) return;
+
 		potEsp.onUpdate();
 		potActionBar.onUpdate();
 	}

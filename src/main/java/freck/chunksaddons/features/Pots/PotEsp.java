@@ -1,6 +1,7 @@
 package freck.chunksaddons.features.Pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import freck.chunksaddons.Config.Config;
 import freck.chunksaddons.util.RegionPos;
 import freck.chunksaddons.util.RenderUtils;
 import freck.chunksaddons.util.Utils;
@@ -35,7 +36,7 @@ public class PotEsp {
     }
 
     public void onUpdate() {
-        if (client.world == null || client.player == null) return; // Check for null player
+        if (client.world == null || client.player == null || !Config.get().PotESP) return; // Check for null player
         blockEntities.clear();
 
 
@@ -54,7 +55,7 @@ public class PotEsp {
     }
 
     public void onRender(MatrixStack matrixStack, float renderTickCounter) {
-        if (client.player == null || !initialized) return; // Ensure player exists before rendering
+        if (client.player == null || !initialized || !Config.get().PotESP) return; // Ensure player exists before rendering
         if (!Utils.inDungeon) return;
 
         GL11.glEnable(GL11.GL_BLEND);

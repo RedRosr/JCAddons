@@ -1,6 +1,7 @@
 package freck.chunksaddons.features.Pots;
 
 import freck.chunksaddons.ChunksAddons;
+import freck.chunksaddons.Config.Config;
 import freck.chunksaddons.util.ActionBarUtils;
 import freck.chunksaddons.util.ChatUtils;
 import freck.chunksaddons.util.Utils;
@@ -14,7 +15,7 @@ public class PotActionBar {
         client = mc;
     }
     public void onUpdate() {
-        if (client.world == null || client.player == null) return;
+        if (client.world == null || client.player == null || !Config.get().PotsWarningActionBar) return;
 
         int potsLeft = ChunksAddons.potEsp.getPots();
         if (potsLeft >= 1 && Utils.inDungeon){

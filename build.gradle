@@ -16,12 +16,19 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	mavenCentral()
+
+
 	maven {
 		url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
 	}
 	maven {
-		name 'Xander Maven'
-		url 'https://maven.isxander.dev/releases'
+		name = "Xander Maven"
+		url = "https://maven.isxander.dev/releases"
+	}
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
 	}
 }
 
@@ -47,8 +54,16 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	// DevAuth (https://github.com/DJtheRedstoner/DevAuth/releases)
 	modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
+
+	// YetAnotherConfigLib (https://modrinth.com/mod/yacl/versions)
 	modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+
+	// ModMenu (https://modrinth.com/mod/modmenu/versions)
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+	implementation 'com.google.code.gson:gson:2.13.0'
 }
 
 processResources {

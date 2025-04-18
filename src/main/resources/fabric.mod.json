@@ -10,11 +10,10 @@
 	],
 	"license": "CC0-1.0",
 	"icon": "assets/chunksaddons/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"freck.chunksaddons.ChunksAddons"
-		]
+		"main": [ "freck.chunksaddons.ChunksAddons" ],
+		"modmenu": ["freck.chunksaddons.Config.ModMenuIntegration"]
 	},
 	"mixins": [
 		"chunksaddons.mixins.json"
@@ -23,7 +22,14 @@
 		"fabricloader": ">=0.16.12",
 		"minecraft": "~1.21.4",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"yet_another_config_lib_v3": ">=3.6.6"
 	},
-	"suggests": {}
+	"suggests": {
+		"modmenu": ">=13.0.3"
+	},
+
+	"custom": {
+		"modmenu:api": true
+	}
 }
