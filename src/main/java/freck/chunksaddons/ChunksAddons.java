@@ -4,10 +4,14 @@ import freck.chunksaddons.Config.Config;
 import freck.chunksaddons.features.Pots.PotActionBar;
 import freck.chunksaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 
 public class ChunksAddons implements ModInitializer {
 	public static final String MOD_ID = "chunksaddons";
@@ -26,6 +30,8 @@ public class ChunksAddons implements ModInitializer {
 
 		potEsp = new PotEsp(minecraftClient);
 		potActionBar = new PotActionBar(minecraftClient);
+
+		registerCommands();
 	}
 
 	public static void onTick() {
@@ -37,5 +43,16 @@ public class ChunksAddons implements ModInitializer {
 
 	public static void onRender(MatrixStack matrixStack, float renderTickCounter) {
 		potEsp.onRender(matrixStack, renderTickCounter);
+	}
+
+	public static void registerCommands() {
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+			dispatcher.register(ClientCommandManager.literal("ca").executes(context -> {
+				MinecraftClient.getInstance().send(() -> {
+					minecraftClient.setScreen(Config.createScreen(context.getSource().getClient().currentScreen));
+				});
+				return 1;
+			}));
+		});
 	}
 }

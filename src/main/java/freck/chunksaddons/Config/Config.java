@@ -1,27 +1,14 @@
 package freck.chunksaddons.Config;
 
-import com.google.common.collect.Lists;
-import dev.isxander.yacl3.api.NameableEnum;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.controller.ControllerBuilder;
-import dev.isxander.yacl3.api.controller.StringControllerBuilder;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
-import dev.isxander.yacl3.config.v2.api.ConfigField;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
-import dev.isxander.yacl3.config.v2.api.autogen.*;
+import dev.isxander.yacl3.config.v2.api.autogen.AutoGen;
 import dev.isxander.yacl3.config.v2.api.autogen.Boolean;
-import dev.isxander.yacl3.config.v2.api.autogen.Label;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
-import dev.isxander.yacl3.gui.ValueFormatters;
 import freck.chunksaddons.ChunksAddons;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.awt.*;
 
 
 public class Config {
