@@ -1,6 +1,7 @@
 package redrosr.jcaddons;
 
 import redrosr.jcaddons.config.Config;
+import redrosr.jcaddons.features.Cards.CardDisplay;
 import redrosr.jcaddons.features.Pots.PotActionBar;
 import redrosr.jcaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
@@ -11,15 +12,18 @@ import net.minecraft.client.util.math.MatrixStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 
 public class JCAddons implements ModInitializer {
 	public static final String MOD_ID = "jcaddons";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
 	public static MinecraftClient minecraftClient;
 
 	public static PotEsp potEsp;
 	public static PotActionBar potActionBar;
+	public static CardDisplay cardDisplay;
 
 	@Override
 	public void onInitialize() {
@@ -30,8 +34,10 @@ public class JCAddons implements ModInitializer {
 
 		potEsp = new PotEsp(minecraftClient);
 		potActionBar = new PotActionBar(minecraftClient);
+		cardDisplay = new CardDisplay(minecraftClient);
 
 		registerCommands();
+		CardDisplay.addTestData();
 	}
 
 	public static void onTick() {
@@ -47,12 +53,13 @@ public class JCAddons implements ModInitializer {
 
 	public static void registerCommands() {
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-			dispatcher.register(ClientCommandManager.literal("jcaddons").executes(context -> {
+			dispatcher.register(literal("jcaddons").executes(context -> {
 				MinecraftClient.getInstance().send(() -> {
 					minecraftClient.setScreen(Config.createScreen(context.getSource().getClient().currentScreen));
 				});
 				return 1;
 			}));
 		});
+
 	}
 }

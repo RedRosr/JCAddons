@@ -15,7 +15,7 @@
 		"main": [
 			"redrosr.jcaddons.JCAddons"
 		],
-		"modmenu": ["redrosr.jcaddons.Config.ModMenuIntegration"]
+		"modmenu": ["redrosr.jcaddons.config.ModMenuIntegration"]
 	},
 	"mixins": [
 		"jcaddons.mixins.json"

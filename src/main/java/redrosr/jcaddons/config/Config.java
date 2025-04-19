@@ -36,6 +36,10 @@ public class Config {
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry public boolean Logging = false;
 
+    @AutoGen(category = "Dev")
+    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
+    @SerialEntry public boolean testText = false;
+
     public static Screen createScreen(Screen parent) {
         return Config.HANDLER.generateGui().generateScreen(parent);
     }
