@@ -1,6 +1,6 @@
 package redrosr.jcaddons;
 
-import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.features.Pots.PotActionBar;
 import redrosr.jcaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;

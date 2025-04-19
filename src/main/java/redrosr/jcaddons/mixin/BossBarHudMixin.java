@@ -1,7 +1,7 @@
 package redrosr.jcaddons.mixin;
 
 import redrosr.jcaddons.JCAddons;
-import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.util.DungeonType;
 import redrosr.jcaddons.util.Utils;
 import net.minecraft.client.MinecraftClient;

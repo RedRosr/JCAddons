@@ -1,7 +1,7 @@
 package redrosr.jcaddons.features.Pots;
 
 import redrosr.jcaddons.JCAddons;
-import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.util.ActionBarUtils;
 import redrosr.jcaddons.util.ChatUtils;
 import redrosr.jcaddons.util.Utils;

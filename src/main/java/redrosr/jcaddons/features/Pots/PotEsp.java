@@ -1,7 +1,7 @@
 package redrosr.jcaddons.features.Pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import redrosr.jcaddons.Config.Config;
+import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.util.RegionPos;
 import redrosr.jcaddons.util.RenderUtils;
 import redrosr.jcaddons.util.Utils;
