@@ -1,11 +1,11 @@
 package redrosr.jcaddons;
 
 import redrosr.jcaddons.config.Config;
+import redrosr.jcaddons.features.Cards.CardDetector;
 import redrosr.jcaddons.features.Cards.CardDisplay;
 import redrosr.jcaddons.features.Pots.PotActionBar;
 import redrosr.jcaddons.features.Pots.PotEsp;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,6 +24,7 @@ public class JCAddons implements ModInitializer {
 	public static PotEsp potEsp;
 	public static PotActionBar potActionBar;
 	public static CardDisplay cardDisplay;
+	public static CardDetector cardDetector;
 
 	@Override
 	public void onInitialize() {
@@ -35,6 +36,7 @@ public class JCAddons implements ModInitializer {
 		potEsp = new PotEsp(minecraftClient);
 		potActionBar = new PotActionBar(minecraftClient);
 		cardDisplay = new CardDisplay(minecraftClient);
+		cardDetector = new CardDetector(minecraftClient);
 
 		registerCommands();
 		CardDisplay.addTestData();
@@ -45,6 +47,7 @@ public class JCAddons implements ModInitializer {
 
 		potEsp.onUpdate();
 		potActionBar.onUpdate();
+		cardDetector.onUpdate();
 	}
 
 	public static void onRender(MatrixStack matrixStack, float renderTickCounter) {
