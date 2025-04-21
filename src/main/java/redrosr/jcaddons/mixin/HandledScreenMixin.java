@@ -31,7 +31,7 @@ public abstract class HandledScreenMixin extends Screen {
         Slot slot = accessor.invokeGetSlotAt(mouseX, mouseY);
 
         if (slot != null) {
-            CardDisplay.handleSlotClick(client, slot.id, handler, ((Screen) this).getTitle());
+            CardDisplay.handleSlotClick(client, slot.id, handler, this.getTitle());
         }
     }
 }

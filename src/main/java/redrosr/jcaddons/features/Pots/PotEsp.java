@@ -1,11 +1,8 @@
 package redrosr.jcaddons.features.Pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import redrosr.jcaddons.config.Config;
-import redrosr.jcaddons.util.RegionPos;
-import redrosr.jcaddons.util.RenderUtils;
-import redrosr.jcaddons.util.Utils;
-import net.minecraft.block.entity.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlUsage;
 import net.minecraft.client.gl.ShaderProgram;
@@ -18,6 +15,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.chunk.WorldChunk;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
+import redrosr.jcaddons.config.Config;
+import redrosr.jcaddons.util.RegionPos;
+import redrosr.jcaddons.util.RenderUtils;
+import redrosr.jcaddons.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,7 +49,7 @@ public class PotEsp {
         }
 
         Stream<BlockEntity> stream = getLoadedBlockEntities()
-                .filter(Objects::nonNull).map(be -> (BlockEntity)be)
+                .filter(Objects::nonNull).map(be -> be)
                 .filter(be -> (be instanceof DecoratedPotBlockEntity));
 
         blockEntities.addAll(stream.toList());
@@ -115,7 +116,7 @@ public class PotEsp {
         ChunkPos min = new ChunkPos(center.x - radius, center.z - radius);
         ChunkPos max = new ChunkPos(center.x + radius, center.z + radius);
 
-        Stream<WorldChunk> stream = Stream.<ChunkPos> iterate(min, pos -> {
+        Stream<WorldChunk> stream = Stream.iterate(min, pos -> {
 
                     int x = pos.x;
                     int z = pos.z;
@@ -133,7 +134,7 @@ public class PotEsp {
 
                     return new ChunkPos(x, z);
 
-                }).limit(diameter * diameter)
+                }).limit((long) diameter * diameter)
                 .filter(c -> client.world.isChunkLoaded(c.x, c.z))
                 .map(c -> client.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
 

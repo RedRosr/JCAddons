@@ -1,11 +1,11 @@
 package redrosr.jcaddons.features.Pots;
 
+import net.minecraft.client.MinecraftClient;
 import redrosr.jcaddons.JCAddons;
 import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.util.ActionBarUtils;
 import redrosr.jcaddons.util.ChatUtils;
 import redrosr.jcaddons.util.Utils;
-import net.minecraft.client.MinecraftClient;
 
 public class PotActionBar {
 

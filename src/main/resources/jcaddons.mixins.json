@@ -3,13 +3,13 @@
 	"package": "redrosr.jcaddons.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"MinecraftClientMixin",
 		"BossBarHudAccessor",
 		"BossBarHudInvoker",
 		"BossBarHudMixin",
 		"GameRendererMixin",
 		"HandledScreenInvoker",
-        "HandledScreenMixin"
+		"HandledScreenMixin",
+		"MinecraftClientMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

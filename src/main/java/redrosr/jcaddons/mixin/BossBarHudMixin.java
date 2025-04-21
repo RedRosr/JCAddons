@@ -1,10 +1,5 @@
 package redrosr.jcaddons.mixin;
 
-import org.spongepowered.asm.mixin.Unique;
-import redrosr.jcaddons.JCAddons;
-import redrosr.jcaddons.config.Config;
-import redrosr.jcaddons.util.DungeonType;
-import redrosr.jcaddons.util.Utils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.BossBarHud;
@@ -12,9 +7,14 @@ import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import redrosr.jcaddons.JCAddons;
+import redrosr.jcaddons.config.Config;
+import redrosr.jcaddons.util.DungeonType;
+import redrosr.jcaddons.util.Utils;
 
 import java.util.Map;
 import java.util.UUID;

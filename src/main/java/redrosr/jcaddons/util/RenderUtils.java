@@ -1,7 +1,6 @@
 package redrosr.jcaddons.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import redrosr.jcaddons.JCAddons;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
@@ -10,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
+import redrosr.jcaddons.JCAddons;
 
 public class RenderUtils {
 
