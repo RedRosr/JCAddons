@@ -43,13 +43,17 @@ public class BossBarHudMixin {
         int y = 12;
 
         boolean currentFrameDungeonMatch = false;
+        boolean monstersDefeated = false;
 
-        // Check for "Already voted" in bossbar
         for (ClientBossBar bossBar : getBossBars(self).values()) {
             String name = bossBar.getName().getString();
 
             if (name.equals("Already voted? Use /vote!") && Config.get().RemoveAds) {
                 continue;
+            }
+
+            if (name.equals("All monsters defeated!")) {
+                monstersDefeated = true;
             }
 
             // Check if player is in a dungeon
@@ -75,6 +79,8 @@ public class BossBarHudMixin {
                 break;
             }
         }
+
+        Utils.roomCleared = monstersDefeated;
 
         long currentTime = System.currentTimeMillis();
 
