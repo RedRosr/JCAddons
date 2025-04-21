@@ -4,9 +4,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import redrosr.jcaddons.JCAddons;
 import redrosr.jcaddons.config.Config;
+import redrosr.jcaddons.util.GuiUtils;
+import redrosr.jcaddons.util.Utils;
 
 import java.util.*;
 
@@ -15,6 +21,7 @@ public class CardDisplay {
     private final MinecraftClient client;
     private static final CardTracker cardTracker = new CardTracker();
     private static final Identifier CARD_TRACKER = Identifier.of(JCAddons.MOD_ID, "card_display");
+    private boolean wasInDungeon = false;
     private static boolean initialized = false;
 
 
@@ -30,16 +37,14 @@ public class CardDisplay {
         }
     }
 
+
     private void render(DrawContext drawContext) {
-        if (client.world == null || client.player == null) return;
-        if (!Config.get().testText) return;
+        if (client.world == null || client.player == null || !Config.get().PickedCardsDisplay) return;
 
         Map<String, Integer> pickedCards = cardTracker.getPickedCards();
+        if (pickedCards.isEmpty()) return;
 
-        // Nothing to render
-        if (pickedCards.isEmpty()) {
-            return;
-        }
+
 
         // Convert to list for potential sorting later
         List<Map.Entry<String, Integer>> cardList = new ArrayList<>(pickedCards.entrySet());
@@ -67,6 +72,30 @@ public class CardDisplay {
             drawContext.drawText(client.textRenderer, displayText, startX - textWidth, yOffset, 0xFFFFFF, true);
             yOffset += 10; // Move down for the next card name
         }
+
+        boolean inDungeon = Utils.inDungeon;
+        if(wasInDungeon && !inDungeon && !pickedCards.isEmpty()) {
+            resetCards();
+        }
+        wasInDungeon = inDungeon;
+    }
+
+    public static void handleSlotClick(MinecraftClient client, int slotId, ScreenHandler handler, Text screenTitle) {
+        if (!GuiUtils.isInventory(screenTitle, "justchunks.gui.dungeon.selectBuff.")) return;
+
+        if (slotId < 0 || slotId >= handler.slots.size()) return;
+
+        Slot slot = handler.slots.get(slotId);
+        ItemStack stack = slot.getStack();
+
+        if (stack.isEmpty()) return;
+
+        String cardName = stack.getName().getString();
+        JCAddons.LOGGER.info("Player picked card: " + cardName);
+
+        if (client.player != null) {
+            CardDisplay.addPickedCard(cardName);
+        }
     }
 
     public static void addPickedCard(String cardName) {
@@ -75,22 +104,6 @@ public class CardDisplay {
 
     public static void resetCards() {
         cardTracker.reset();
-    }
-
-    public static void addTestData() {
-        resetCards();
-
-        addPickedCard("Strength Card");
-        addPickedCard("Strength Card");
-
-        addPickedCard("Speed Card");
-
-        addPickedCard("Defense Card");
-        addPickedCard("Defense Card");
-        addPickedCard("Defense Card");
-
-        addPickedCard("Healing Card");
-        addPickedCard("Damage Card");
     }
 
     private static class CardTracker {

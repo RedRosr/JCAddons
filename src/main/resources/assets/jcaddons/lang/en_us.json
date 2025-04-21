@@ -4,6 +4,7 @@
   "yacl3.config.jcaddons:config.PotESP" : "Highlight decorated pots in dungeons",
   "yacl3.config.jcaddons:config.PotsWarningActionBar": "Action bar warning when there is pots left in the dungeon",
   "yacl3.config.jcaddons:config.RemoveAds": "Remove 'Already voted?' from bossbar",
+  "yacl3.config.jcaddons:config.PickedCardsDisplay": "Display the picked cards from your run",
 
 
   "yacl3.config.jcaddons:config.category.Dev": "Dev",

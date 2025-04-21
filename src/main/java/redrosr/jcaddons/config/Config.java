@@ -20,6 +20,14 @@ public class Config {
             .build())
         .build();
 
+    @AutoGen(category = "General")
+    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
+    @SerialEntry public boolean RemoveAds = true;
+
+    @AutoGen(category = "General")
+    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
+    @SerialEntry public boolean PickedCardsDisplay = true;
+
     @AutoGen(category = "General", group = "Pots")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry public boolean PotESP = true;
@@ -28,17 +36,10 @@ public class Config {
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry public boolean PotsWarningActionBar = true;
 
-    @AutoGen(category = "General")
-    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
-    @SerialEntry public boolean RemoveAds = true;
-
     @AutoGen(category = "Dev")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry public boolean Logging = false;
 
-    @AutoGen(category = "Dev")
-    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
-    @SerialEntry public boolean testText = false;
 
     public static Screen createScreen(Screen parent) {
         return Config.HANDLER.generateGui().generateScreen(parent);
