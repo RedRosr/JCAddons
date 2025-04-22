@@ -48,10 +48,6 @@ public class BossBarHudMixin {
         for (ClientBossBar bossBar : getBossBars(self).values()) {
             String name = bossBar.getName().getString();
 
-            if (name.equals("Already voted? Use /vote!") && Config.get().RemoveAds) {
-                continue;
-            }
-
             if (name.equals("All monsters defeated!")) {
                 monstersDefeated = true;
             }

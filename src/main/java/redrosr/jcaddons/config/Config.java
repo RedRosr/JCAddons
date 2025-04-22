@@ -23,11 +23,6 @@ public class Config {
     @AutoGen(category = "General")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry
-    public boolean RemoveAds = true;
-
-    @AutoGen(category = "General")
-    @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
-    @SerialEntry
     public boolean PickedCardsDisplay = true;
 
     @AutoGen(category = "General", group = "Pots")
