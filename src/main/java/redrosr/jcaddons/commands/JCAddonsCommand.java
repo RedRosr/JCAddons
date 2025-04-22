@@ -11,7 +11,7 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 import static redrosr.jcaddons.JCAddons.minecraftClient;
 
 public class JCAddonsCommand {
-    public static void init() {
+    public JCAddonsCommand() {
         ClientCommandRegistrationCallback.EVENT.register(JCAddonsCommand::register);
     }
 

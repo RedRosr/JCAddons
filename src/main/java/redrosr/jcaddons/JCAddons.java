@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redrosr.jcaddons.commands.JCAddonsCommand;
 import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.features.Cards.CardDisplay;
 import redrosr.jcaddons.features.Pots.PotActionBar;
@@ -20,6 +21,7 @@ public class JCAddons implements ModInitializer {
     public static PotEsp potEsp;
     public static PotActionBar potActionBar;
     public static CardDisplay cardDisplay;
+    public static JCAddonsCommand JCAddonsCommand;
 
     public static void onTick() {
         if (minecraftClient.player == null || minecraftClient.world == null) return;
@@ -32,10 +34,6 @@ public class JCAddons implements ModInitializer {
         potEsp.onRender(matrixStack, renderTickCounter);
     }
 
-    public static void registerCommands() {
-
-
-    }
 
     @Override
     public void onInitialize() {
@@ -48,6 +46,9 @@ public class JCAddons implements ModInitializer {
         potActionBar = new PotActionBar(minecraftClient);
         cardDisplay = new CardDisplay(minecraftClient);
 
-        registerCommands();
+        JCAddonsCommand  = new JCAddonsCommand();
+
+
+
     }
 }
