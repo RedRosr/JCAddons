@@ -15,49 +15,49 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 
 
 public class JCAddons implements ModInitializer {
-	public static final String MOD_ID = "jcaddons";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final String MOD_ID = "jcaddons";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static MinecraftClient minecraftClient;
+    public static MinecraftClient minecraftClient;
 
-	public static PotEsp potEsp;
-	public static PotActionBar potActionBar;
-	public static CardDisplay cardDisplay;
+    public static PotEsp potEsp;
+    public static PotActionBar potActionBar;
+    public static CardDisplay cardDisplay;
 
-	@Override
-	public void onInitialize() {
-		LOGGER.info("Initializing JCAddons");
-		minecraftClient = MinecraftClient.getInstance();
+    @Override
+    public void onInitialize() {
+        LOGGER.info("Initializing JCAddons");
+        minecraftClient = MinecraftClient.getInstance();
 
-		Config.HANDLER.load();
+        Config.HANDLER.load();
 
-		potEsp = new PotEsp(minecraftClient);
-		potActionBar = new PotActionBar(minecraftClient);
-		cardDisplay = new CardDisplay(minecraftClient);
+        potEsp = new PotEsp(minecraftClient);
+        potActionBar = new PotActionBar(minecraftClient);
+        cardDisplay = new CardDisplay(minecraftClient);
 
-		registerCommands();
-	}
+        registerCommands();
+    }
 
-	public static void onTick() {
-		if (minecraftClient.player == null || minecraftClient.world == null) return;
+    public static void onTick() {
+        if (minecraftClient.player == null || minecraftClient.world == null) return;
 
-		potEsp.onUpdate();
-		potActionBar.onUpdate();
-	}
+        potEsp.onUpdate();
+        potActionBar.onUpdate();
+    }
 
-	public static void onRender(MatrixStack matrixStack, float renderTickCounter) {
-		potEsp.onRender(matrixStack, renderTickCounter);
-	}
+    public static void onRender(MatrixStack matrixStack, float renderTickCounter) {
+        potEsp.onRender(matrixStack, renderTickCounter);
+    }
 
-	public static void registerCommands() {
-		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-			dispatcher.register(literal("jcaddons").executes(context -> {
-				MinecraftClient.getInstance().send(() -> {
-					minecraftClient.setScreen(Config.createScreen(context.getSource().getClient().currentScreen));
-				});
-				return 1;
-			}));
-		});
+    public static void registerCommands() {
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(literal("jcaddons").executes(context -> {
+                MinecraftClient.getInstance().send(() -> {
+                    minecraftClient.setScreen(Config.createScreen(context.getSource().getClient().currentScreen));
+                });
+                return 1;
+            }));
+        });
 
-	}
+    }
 }
