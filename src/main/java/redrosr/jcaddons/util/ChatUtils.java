@@ -17,6 +17,7 @@ public class ChatUtils {
     /**
      * Sends a formatted text message with the client prefix.
      * Supports multiple text components, which will be combined with spaces.
+     *
      * @param messages The text components to send.
      */
     public static void sendMessage(Text... messages) {
@@ -29,6 +30,7 @@ public class ChatUtils {
     /**
      * Sends a raw message without a prefix.
      * Supports multiple text components, which will be combined with spaces.
+     *
      * @param messages The text components to send.
      */
     public static void sendRawMessage(Text... messages) {
@@ -39,6 +41,7 @@ public class ChatUtils {
 
     /**
      * Joins multiple Text components with spaces.
+     *
      * @param messages The text components to join.
      * @return The combined Text component.
      */
@@ -55,7 +58,8 @@ public class ChatUtils {
 
     /**
      * Creates a hoverable text component.
-     * @param text The main text.
+     *
+     * @param text      The main text.
      * @param hoverText The text to show on hover.
      * @return The formatted Text component.
      */
@@ -68,7 +72,8 @@ public class ChatUtils {
 
     /**
      * Creates a clickable text component.
-     * @param text The main text.
+     *
+     * @param text    The main text.
      * @param command The command to run when clicked.
      * @return The formatted Text component.
      */
@@ -81,7 +86,8 @@ public class ChatUtils {
 
     /**
      * Creates a text component that suggests text when clicked.
-     * @param text The main text.
+     *
+     * @param text       The main text.
      * @param suggestion The text to suggest when clicked.
      * @return The formatted Text component.
      */
@@ -94,8 +100,9 @@ public class ChatUtils {
 
     /**
      * Creates a text component that opens a URL when clicked.
+     *
      * @param text The main text.
-     * @param url The URL to open.
+     * @param url  The URL to open.
      * @return The formatted Text component.
      */
     public static Text urlText(String text, String url) {
@@ -107,6 +114,7 @@ public class ChatUtils {
 
     /**
      * Creates an item hoverable text component.
+     *
      * @param text The main text.
      * @param item The item stack to show.
      * @return The formatted Text component.
@@ -120,6 +128,7 @@ public class ChatUtils {
 
     /**
      * Creates a formatted text component.
+     *
      * @param text The main text.
      * @return The formatted Text component.
      */
@@ -129,6 +138,7 @@ public class ChatUtils {
 
     /**
      * Formats a message with placeholders and color codes.
+     *
      * @param message The message to format.
      * @return The fully formatted message.
      */
@@ -138,6 +148,7 @@ public class ChatUtils {
 
     /**
      * Converts '&' color codes to Minecraft's formatting codes.
+     *
      * @param message The message to process.
      * @return The color-formatted message.
      */
@@ -168,6 +179,7 @@ public class ChatUtils {
 
     /**
      * Converts '&' color codes into Minecraft `Text` components.
+     *
      * @param message The message string with color codes.
      * @return A properly formatted Text component.
      */
@@ -206,6 +218,7 @@ public class ChatUtils {
 
     /**
      * Gets the corresponding `Formatting` for a given '&' code.
+     *
      * @param code The color code character.
      * @return The corresponding `Formatting` enum.
      */

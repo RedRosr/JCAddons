@@ -10,7 +10,7 @@ import redrosr.jcaddons.JCAddons;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
 
-    @Inject(method="tick", at=@At("HEAD"))
+    @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         JCAddons.onTick();
     }

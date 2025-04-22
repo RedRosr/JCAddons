@@ -101,14 +101,12 @@ public class PotEsp {
         }
     }
 
-    public Stream<BlockEntity> getLoadedBlockEntities()
-    {
+    public Stream<BlockEntity> getLoadedBlockEntities() {
         return getLoadedChunks()
                 .flatMap(chunk -> chunk.getBlockEntities().values().stream());
     }
 
-    public Stream<WorldChunk> getLoadedChunks()
-    {
+    public Stream<WorldChunk> getLoadedChunks() {
         int radius = Math.max(2, client.options.getClampedViewDistance()) + 3;
         int diameter = radius * 2 + 1;
 
@@ -123,13 +121,12 @@ public class PotEsp {
 
                     x++;
 
-                    if(x > max.x)
-                    {
+                    if (x > max.x) {
                         x = min.x;
                         z++;
                     }
 
-                    if(z > max.z)
+                    if (z > max.z)
                         throw new IllegalStateException("Stream limit didn't work.");
 
                     return new ChunkPos(x, z);

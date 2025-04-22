@@ -14,11 +14,12 @@ public class PotActionBar {
     public PotActionBar(MinecraftClient mc) {
         client = mc;
     }
+
     public void onUpdate() {
         if (client.world == null || client.player == null || !Config.get().PotsWarningActionBar) return;
 
         int potsLeft = JCAddons.potEsp.getPots();
-        if (potsLeft >= 1 && Utils.inDungeon){
+        if (potsLeft >= 1 && Utils.inDungeon) {
             ActionBarUtils.sendActionBar(ChatUtils.formatText("&kWW &4&l!! &r&cDon't Forget The Pots &4&l!! &r&kWW"));
         }
     }

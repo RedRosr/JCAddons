@@ -21,8 +21,7 @@ public class GameRendererMixin {
             method = "renderWorld(Lnet/minecraft/client/render/RenderTickCounter;)V")
     private void onRenderWorldHandRendering(RenderTickCounter tickCounter,
                                             CallbackInfo ci, @Local(ordinal = 2) Matrix4f matrix4f3,
-                                            @Local(ordinal = 1) float tickDelta)
-    {
+                                            @Local(ordinal = 1) float tickDelta) {
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.multiplyPositionMatrix(matrix4f3);
         JCAddons.onRender(matrixStack, tickDelta);

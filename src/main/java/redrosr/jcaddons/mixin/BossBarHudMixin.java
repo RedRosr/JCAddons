@@ -31,7 +31,7 @@ public class BossBarHudMixin {
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void filterBossBars(DrawContext context, CallbackInfo ci) {
-        BossBarHud self = (BossBarHud)(Object)this;
+        BossBarHud self = (BossBarHud) (Object) this;
         MinecraftClient client = JCAddons.minecraftClient;
 
         if (client == null) return;
@@ -87,8 +87,7 @@ public class BossBarHudMixin {
         if (currentFrameDungeonMatch != previousDungeonState) {
             if (dungeonStateChangeTime == 0) {
                 dungeonStateChangeTime = currentTime;
-            }
-            else if (currentTime - dungeonStateChangeTime > DUNGEON_STATE_CHANGE_DELAY) {
+            } else if (currentTime - dungeonStateChangeTime > DUNGEON_STATE_CHANGE_DELAY) {
                 Utils.inDungeon = currentFrameDungeonMatch;
                 previousDungeonState = currentFrameDungeonMatch;
                 dungeonStateChangeTime = 0; // Reset the timer

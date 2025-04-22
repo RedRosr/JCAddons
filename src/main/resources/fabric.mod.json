@@ -1,37 +1,38 @@
 {
-	"schemaVersion": 1,
-	"id": "jcaddons",
-	"version": "${version}",
-	"name": "JCAddons",
-	"description": "This mod contains features for the minecraft server JustChunks",
-	"authors": [
-		"freck",
-		"Himeji"
-	],
-	"license": "CC0-1.0",
-	"icon": "assets/jcaddons/icon.png",
-	"environment": "client",
-	"entrypoints": {
-		"main": [
-			"redrosr.jcaddons.JCAddons"
-		],
-		"modmenu": ["redrosr.jcaddons.config.ModMenuIntegration"]
-	},
-	"mixins": [
-		"jcaddons.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*",
-		"yet_another_config_lib_v3": ">=3.6.6"
-	},
-	"suggests": {
-		"modmenu": ">=13.0.3"
-	},
-
-	"custom": {
-		"modmenu:api": true
-	}
+  "schemaVersion": 1,
+  "id": "jcaddons",
+  "version": "${version}",
+  "name": "JCAddons",
+  "description": "This mod contains features for the minecraft server JustChunks",
+  "authors": [
+    "freck",
+    "Himeji"
+  ],
+  "license": "CC0-1.0",
+  "icon": "assets/jcaddons/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "redrosr.jcaddons.JCAddons"
+    ],
+    "modmenu": [
+      "redrosr.jcaddons.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "jcaddons.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.21",
+    "java": ">=21",
+    "fabric-api": "*",
+    "yet_another_config_lib_v3": ">=3.6.6"
+  },
+  "suggests": {
+    "modmenu": ">=13.0.3"
+  },
+  "custom": {
+    "modmenu:api": true
+  }
 }
