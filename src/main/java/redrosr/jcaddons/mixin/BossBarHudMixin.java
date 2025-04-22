@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import redrosr.jcaddons.JCAddons;
-import redrosr.jcaddons.config.Config;
 import redrosr.jcaddons.util.DungeonType;
 import redrosr.jcaddons.util.Utils;
 
@@ -23,11 +22,11 @@ import java.util.UUID;
 public class BossBarHudMixin {
 
     @Unique
+    private static final long DUNGEON_STATE_CHANGE_DELAY = 500; // 500 millisecond delay
+    @Unique
     private boolean previousDungeonState = false;
     @Unique
     private long dungeonStateChangeTime = 0;
-    @Unique
-    private static final long DUNGEON_STATE_CHANGE_DELAY = 500; // 500 millisecond delay
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void filterBossBars(DrawContext context, CallbackInfo ci) {

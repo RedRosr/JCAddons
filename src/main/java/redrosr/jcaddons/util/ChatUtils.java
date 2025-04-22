@@ -65,9 +65,9 @@ public class ChatUtils {
      */
     public static Text hoverableText(String text, String hoverText) {
         return Text.literal(translateColorCodes(text))
-                .setStyle(Style.EMPTY.withHoverEvent(
-                        new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(translateColorCodes(hoverText))))
-                );
+            .setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(translateColorCodes(hoverText))))
+            );
     }
 
     /**
@@ -79,9 +79,9 @@ public class ChatUtils {
      */
     public static Text clickableText(String text, String command) {
         return Text.literal(translateColorCodes(text))
-                .setStyle(Style.EMPTY.withClickEvent(
-                        new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                );
+            .setStyle(Style.EMPTY.withClickEvent(
+                new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
+            );
     }
 
     /**
@@ -93,9 +93,9 @@ public class ChatUtils {
      */
     public static Text suggestableText(String text, String suggestion) {
         return Text.literal(translateColorCodes(text))
-                .setStyle(Style.EMPTY.withClickEvent(
-                        new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, suggestion))
-                );
+            .setStyle(Style.EMPTY.withClickEvent(
+                new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, suggestion))
+            );
     }
 
     /**
@@ -107,9 +107,9 @@ public class ChatUtils {
      */
     public static Text urlText(String text, String url) {
         return Text.literal(translateColorCodes(text))
-                .setStyle(Style.EMPTY.withClickEvent(
-                        new ClickEvent(ClickEvent.Action.OPEN_URL, url))
-                );
+            .setStyle(Style.EMPTY.withClickEvent(
+                new ClickEvent(ClickEvent.Action.OPEN_URL, url))
+            );
     }
 
     /**
@@ -121,9 +121,9 @@ public class ChatUtils {
      */
     public static Text itemHoverText(String text, ItemStack item) {
         return Text.literal(translateColorCodes(text))
-                .setStyle(Style.EMPTY.withHoverEvent(
-                        new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackContent(item)))
-                );
+            .setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackContent(item)))
+            );
     }
 
     /**
@@ -154,27 +154,27 @@ public class ChatUtils {
      */
     private static String translateColorCodes(String message) {
         return message.replace("&0", Formatting.BLACK.toString())
-                .replace("&1", Formatting.DARK_BLUE.toString())
-                .replace("&2", Formatting.DARK_GREEN.toString())
-                .replace("&3", Formatting.DARK_AQUA.toString())
-                .replace("&4", Formatting.DARK_RED.toString())
-                .replace("&5", Formatting.DARK_PURPLE.toString())
-                .replace("&6", Formatting.GOLD.toString())
-                .replace("&7", Formatting.GRAY.toString())
-                .replace("&8", Formatting.DARK_GRAY.toString())
-                .replace("&9", Formatting.BLUE.toString())
-                .replace("&a", Formatting.GREEN.toString())
-                .replace("&b", Formatting.AQUA.toString())
-                .replace("&c", Formatting.RED.toString())
-                .replace("&d", Formatting.LIGHT_PURPLE.toString())
-                .replace("&e", Formatting.YELLOW.toString())
-                .replace("&f", Formatting.WHITE.toString())
-                .replace("&k", Formatting.OBFUSCATED.toString())
-                .replace("&l", Formatting.BOLD.toString())
-                .replace("&m", Formatting.STRIKETHROUGH.toString())
-                .replace("&n", Formatting.UNDERLINE.toString())
-                .replace("&o", Formatting.ITALIC.toString())
-                .replace("&r", Formatting.RESET.toString());
+            .replace("&1", Formatting.DARK_BLUE.toString())
+            .replace("&2", Formatting.DARK_GREEN.toString())
+            .replace("&3", Formatting.DARK_AQUA.toString())
+            .replace("&4", Formatting.DARK_RED.toString())
+            .replace("&5", Formatting.DARK_PURPLE.toString())
+            .replace("&6", Formatting.GOLD.toString())
+            .replace("&7", Formatting.GRAY.toString())
+            .replace("&8", Formatting.DARK_GRAY.toString())
+            .replace("&9", Formatting.BLUE.toString())
+            .replace("&a", Formatting.GREEN.toString())
+            .replace("&b", Formatting.AQUA.toString())
+            .replace("&c", Formatting.RED.toString())
+            .replace("&d", Formatting.LIGHT_PURPLE.toString())
+            .replace("&e", Formatting.YELLOW.toString())
+            .replace("&f", Formatting.WHITE.toString())
+            .replace("&k", Formatting.OBFUSCATED.toString())
+            .replace("&l", Formatting.BOLD.toString())
+            .replace("&m", Formatting.STRIKETHROUGH.toString())
+            .replace("&n", Formatting.UNDERLINE.toString())
+            .replace("&o", Formatting.ITALIC.toString())
+            .replace("&r", Formatting.RESET.toString());
     }
 
     /**

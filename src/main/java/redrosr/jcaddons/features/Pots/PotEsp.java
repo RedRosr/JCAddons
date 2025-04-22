@@ -49,14 +49,15 @@ public class PotEsp {
         }
 
         Stream<BlockEntity> stream = getLoadedBlockEntities()
-                .filter(Objects::nonNull).map(be -> be)
-                .filter(be -> (be instanceof DecoratedPotBlockEntity));
+            .filter(Objects::nonNull).map(be -> be)
+            .filter(be -> (be instanceof DecoratedPotBlockEntity));
 
         blockEntities.addAll(stream.toList());
     }
 
     public void onRender(MatrixStack matrixStack, float renderTickCounter) {
-        if (client.player == null || !initialized || !Config.get().PotESP) return; // Ensure player exists before rendering
+        if (client.player == null || !initialized || !Config.get().PotESP)
+            return; // Ensure player exists before rendering
         if (!Utils.inDungeon) return;
 
         GL11.glEnable(GL11.GL_BLEND);
@@ -103,7 +104,7 @@ public class PotEsp {
 
     public Stream<BlockEntity> getLoadedBlockEntities() {
         return getLoadedChunks()
-                .flatMap(chunk -> chunk.getBlockEntities().values().stream());
+            .flatMap(chunk -> chunk.getBlockEntities().values().stream());
     }
 
     public Stream<WorldChunk> getLoadedChunks() {
@@ -116,24 +117,24 @@ public class PotEsp {
 
         Stream<WorldChunk> stream = Stream.iterate(min, pos -> {
 
-                    int x = pos.x;
-                    int z = pos.z;
+                int x = pos.x;
+                int z = pos.z;
 
-                    x++;
+                x++;
 
-                    if (x > max.x) {
-                        x = min.x;
-                        z++;
-                    }
+                if (x > max.x) {
+                    x = min.x;
+                    z++;
+                }
 
-                    if (z > max.z)
-                        throw new IllegalStateException("Stream limit didn't work.");
+                if (z > max.z)
+                    throw new IllegalStateException("Stream limit didn't work.");
 
-                    return new ChunkPos(x, z);
+                return new ChunkPos(x, z);
 
-                }).limit((long) diameter * diameter)
-                .filter(c -> client.world.isChunkLoaded(c.x, c.z))
-                .map(c -> client.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
+            }).limit((long) diameter * diameter)
+            .filter(c -> client.world.isChunkLoaded(c.x, c.z))
+            .map(c -> client.world.getChunk(c.x, c.z)).filter(Objects::nonNull);
 
         return stream;
     }

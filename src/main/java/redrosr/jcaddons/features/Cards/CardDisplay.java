@@ -22,11 +22,11 @@ import java.util.Map;
 
 public class CardDisplay {
 
-    private final MinecraftClient client;
     private static final CardTracker cardTracker = new CardTracker();
     private static final Identifier CARD_TRACKER = Identifier.of(JCAddons.MOD_ID, "card_display");
-    private boolean wasInDungeon = false;
     private static boolean initialized = false;
+    private final MinecraftClient client;
+    private boolean wasInDungeon = false;
 
 
     public CardDisplay(MinecraftClient mc) {
@@ -34,11 +34,45 @@ public class CardDisplay {
 
         if (!initialized) {
             HudLayerRegistrationCallback.EVENT.register(d ->
-                    d.attachLayerAfter(IdentifiedLayer.STATUS_EFFECTS, CARD_TRACKER,
-                            (context, tickCounter) -> render(context))
+                d.attachLayerAfter(IdentifiedLayer.STATUS_EFFECTS, CARD_TRACKER,
+                    (context, tickCounter) -> render(context))
             );
             initialized = true;
         }
+    }
+
+    public static void handleSlotClick(MinecraftClient client, int slotId, ScreenHandler handler, Text screenTitle) {
+        if (!GuiUtils.isInventory(screenTitle, "justchunks.gui.dungeon.selectBuff.")) return;
+        if (slotId < 0 || slotId >= handler.slots.size()) return;
+
+        Slot slot = handler.slots.get(slotId);
+        ItemStack stack = slot.getStack();
+
+        if (stack.isEmpty()) return;
+
+        Text cardNameFormatted = stack.getFormattedName();
+        List<Text> cardLore = ItemUtils.getLore(stack);
+        String cardRarityString = ItemUtils.getItemRarity(stack);
+
+        if (client.player != null) {
+            CardRarity cardRarity = null;
+            try {
+                cardRarity = CardRarity.valueOf(cardRarityString);
+            } catch (IllegalArgumentException e) {
+                // Handle case when rarity string doesn't match any enum value
+                JCAddons.LOGGER.warn("Unknown card rarity: " + cardRarityString);
+            }
+
+            CardDisplay.addPickedCard(cardNameFormatted, cardRarity);
+        }
+    }
+
+    public static void addPickedCard(Text cardName, CardRarity rarity) {
+        cardTracker.addCard(cardName, rarity);
+    }
+
+    public static void resetCards() {
+        cardTracker.reset();
     }
 
     private void render(DrawContext drawContext) {
@@ -82,8 +116,8 @@ public class CardDisplay {
             int count = entry.getValue().count;
 
             Text displayText = count > 1
-                    ? Text.empty().append(cardName).append(" x" + count)
-                    : cardName;
+                ? Text.empty().append(cardName).append(" x" + count)
+                : cardName;
 
 
             int textWidth = client.textRenderer.getWidth(displayText);
@@ -98,54 +132,9 @@ public class CardDisplay {
         wasInDungeon = inDungeon;
     }
 
-    public static void handleSlotClick(MinecraftClient client, int slotId, ScreenHandler handler, Text screenTitle) {
-        if (!GuiUtils.isInventory(screenTitle, "justchunks.gui.dungeon.selectBuff.")) return;
-        if (slotId < 0 || slotId >= handler.slots.size()) return;
-
-        Slot slot = handler.slots.get(slotId);
-        ItemStack stack = slot.getStack();
-
-        if (stack.isEmpty()) return;
-
-        Text cardNameFormatted = stack.getFormattedName();
-        List<Text> cardLore = ItemUtils.getLore(stack);
-        String cardRarityString = ItemUtils.getItemRarity(stack);
-
-        if (client.player != null) {
-            CardRarity cardRarity = null;
-            try {
-                cardRarity = CardRarity.valueOf(cardRarityString);
-            } catch (IllegalArgumentException e) {
-                // Handle case when rarity string doesn't match any enum value
-                JCAddons.LOGGER.warn("Unknown card rarity: " + cardRarityString);
-            }
-
-            CardDisplay.addPickedCard(cardNameFormatted, cardRarity);
-        }
-    }
-
-    public static void addPickedCard(Text cardName, CardRarity rarity) {
-        cardTracker.addCard(cardName, rarity);
-    }
-
-    public static void resetCards() {
-        cardTracker.reset();
-    }
-
     private static class CardTracker {
         // Using HashMap to store card names, counts, and rarities
         private final Map<Text, CardEntry> pickedCards = new HashMap<>();
-
-        // Helper class to store both count and rarity
-        private static class CardEntry {
-            int count;
-            CardRarity rarity;
-
-            CardEntry(int count, CardRarity rarity) {
-                this.count = count;
-                this.rarity = rarity;
-            }
-        }
 
         public void addCard(Text cardName, CardRarity rarity) {
             Text styledName = cardName;
@@ -156,7 +145,7 @@ public class CardDisplay {
                 if (colorResult.result().isPresent()) {
                     TextColor color = colorResult.result().get();
                     styledName = Text.literal(cardName.getString()).setStyle(
-                            cardName.getStyle().withColor(color).withItalic(false)
+                        cardName.getStyle().withColor(color).withItalic(false)
                     );
                 }
             }
@@ -172,6 +161,17 @@ public class CardDisplay {
 
         public void reset() {
             pickedCards.clear();
+        }
+
+        // Helper class to store both count and rarity
+        private static class CardEntry {
+            int count;
+            CardRarity rarity;
+
+            CardEntry(int count, CardRarity rarity) {
+                this.count = count;
+                this.rarity = rarity;
+            }
         }
     }
 }

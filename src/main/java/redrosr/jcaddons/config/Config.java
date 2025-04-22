@@ -13,12 +13,12 @@ import redrosr.jcaddons.JCAddons;
 
 public class Config {
     public static final ConfigClassHandler<Config> HANDLER = ConfigClassHandler.createBuilder(Config.class)
-            .id(Identifier.of(JCAddons.MOD_ID, "config")) // unique ID for your config
-            .serializer(config -> GsonConfigSerializerBuilder.create(config)
-                    .setPath(FabricLoader.getInstance().getConfigDir().resolve(JCAddons.MOD_ID + ".json5"))
-                    .setJson5(true) // json5 support, with GSON!
-                    .build())
-            .build();
+        .id(Identifier.of(JCAddons.MOD_ID, "config")) // unique ID for your config
+        .serializer(config -> GsonConfigSerializerBuilder.create(config)
+            .setPath(FabricLoader.getInstance().getConfigDir().resolve(JCAddons.MOD_ID + ".json5"))
+            .setJson5(true) // json5 support, with GSON!
+            .build())
+        .build();
 
     @AutoGen(category = "General")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
