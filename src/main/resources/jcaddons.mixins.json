@@ -6,7 +6,6 @@
     "BossBarHudAccessor",
     "BossBarHudInvoker",
     "BossBarHudMixin",
-    "GameRendererMixin",
     "HandledScreenInvoker",
     "HandledScreenMixin",
     "MinecraftClientMixin"

@@ -2,18 +2,19 @@ package redrosr.jcaddons.util;
 
 import com.mojang.serialization.DataResult;
 import net.minecraft.text.TextColor;
+import net.minecraft.util.math.ColorHelper;
 
 public enum CardRarity {
-    COMMON("Common", TextColor.parse("#BAC4D1")), // gedaan
-    UNCOMMON("Uncommon", TextColor.parse("#2A8B39")),
-    RARE("Rare", TextColor.parse("#09679F")),
-    EPIC("Epic", TextColor.parse("#832BC9")),
-    LEGENDARY("Legendary", TextColor.parse("#EBB621"));
+    COMMON("Common", 0xFFBAC4D1),
+    UNCOMMON("Uncommon", 0xFF2A8B39),
+    RARE("Rare", 0xFF09679F),
+    EPIC("Epic", 0xFF832BC9),
+    LEGENDARY("Legendary", 0xFFEBB621);
 
     private final String nameFallback;
-    private final DataResult<TextColor> color;
+    private final int color;
 
-    CardRarity(String nameFallback, DataResult<TextColor> color) {
+    CardRarity(String nameFallback, int color) {
         this.nameFallback = nameFallback;
         this.color = color;
     }
@@ -22,7 +23,7 @@ public enum CardRarity {
         return nameFallback;
     }
 
-    public DataResult<TextColor> getColor() {
+    public int getColor() {
         return color;
     }
 }

@@ -1,6 +1,7 @@
 package redrosr.jcaddons;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import redrosr.jcaddons.features.Pots.PotActionBar;
 import redrosr.jcaddons.features.Pots.PotEsp;
 
 
-public class JCAddons implements ModInitializer {
+public class JCAddons implements ClientModInitializer {
     public static final String MOD_ID = "jcaddons";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -36,19 +37,22 @@ public class JCAddons implements ModInitializer {
 
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         LOGGER.info("Initializing JCAddons");
         minecraftClient = MinecraftClient.getInstance();
+
+        WorldRenderEvents.BEFORE_ENTITIES.register((context) -> {
+            MatrixStack matrixStack = context.matrixStack();
+            float tickDelta = context.tickCounter().getDynamicDeltaTicks();
+            JCAddons.onRender(matrixStack, tickDelta);
+        });
 
         Config.HANDLER.load();
 
         potEsp = new PotEsp(minecraftClient);
         potActionBar = new PotActionBar(minecraftClient);
         cardDisplay = new CardDisplay(minecraftClient);
-
         JCAddonsCommand  = new JCAddonsCommand();
-
-
 
     }
 }
