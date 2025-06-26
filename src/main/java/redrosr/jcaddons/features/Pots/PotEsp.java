@@ -4,19 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.GlUsage;
-import net.minecraft.client.gl.ShaderProgram;
-import net.minecraft.client.gl.ShaderProgramKeys;
-import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.chunk.WorldChunk;
-import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL11;
 import redrosr.jcaddons.config.Config;
-import redrosr.jcaddons.util.RegionPos;
 import redrosr.jcaddons.util.RenderUtils;
 import redrosr.jcaddons.util.Utils;
 
@@ -28,9 +20,6 @@ public class PotEsp {
 
     private final MinecraftClient client;
     private final ArrayList<BlockEntity> blockEntities = new ArrayList<>();
-    private VertexBuffer blockBox;
-
-    private boolean initialized = false;
 
     public PotEsp(MinecraftClient mc) {
         client = mc;
@@ -40,14 +29,6 @@ public class PotEsp {
         if (client.world == null || client.player == null || !Config.get().PotESP) return; // Check for null player
         blockEntities.clear();
 
-
-        if (!initialized) {
-            blockBox = new VertexBuffer(GlUsage.STATIC_WRITE);
-            Box bb = new Box(-0.5, 0, -0.5, 0.5, 1, 0.5);
-            RenderUtils.drawSolidBox(bb, blockBox);
-            initialized = true;
-        }
-
         Stream<BlockEntity> stream = getLoadedBlockEntities()
             .filter(Objects::nonNull).map(be -> be)
             .filter(be -> (be instanceof DecoratedPotBlockEntity));
@@ -56,49 +37,17 @@ public class PotEsp {
     }
 
     public void onRender(MatrixStack matrixStack, float renderTickCounter) {
-        if (client.player == null || !initialized || !Config.get().PotESP)
+        if (client.player == null || !Config.get().PotESP)
             return; // Ensure player exists before rendering
         if (!Utils.inDungeon) return;
 
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-
-        matrixStack.push();
-
-        RegionPos region = RenderUtils.getCameraRegion();
-        RenderUtils.applyRegionalRenderOffset(matrixStack, region);
-
-        renderBoxes(matrixStack, renderTickCounter, region);
-
-        matrixStack.pop();
-
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDisable(GL11.GL_BLEND);
+        renderBoxes(matrixStack, renderTickCounter);
     }
 
-    private void renderBoxes(MatrixStack matrixStack, float partialTicks, RegionPos region) {
-        RenderSystem.setShader(ShaderProgramKeys.POSITION);
-
+    private void renderBoxes(MatrixStack matrixStack, float partialTicks) {
         for (BlockEntity be : blockEntities) {
-            matrixStack.push();
-
-            Vec3d lerpedPos = Vec3d.of(be.getPos()).subtract(region.toVec3d());
-            matrixStack.translate(lerpedPos.x + 0.5, lerpedPos.y, lerpedPos.z + 0.5);
-
-            matrixStack.scale(1, 1, 1);
-
-            RenderSystem.setShaderColor(0.372F, 0.208F, 0.169F, 0.6F);
-
-            Matrix4f viewMatrix = matrixStack.peek().getPositionMatrix();
-            Matrix4f projMatrix = RenderSystem.getProjectionMatrix();
-            ShaderProgram shader = RenderSystem.getShader();
-            blockBox.bind();
-            blockBox.draw(viewMatrix, projMatrix, shader);
-            VertexBuffer.unbind();
-
-            matrixStack.pop();
+            Box potBox = new Box(be.getPos().getX(), be.getPos().getY(), be.getPos().getZ(), be.getPos().getX() + 1, be.getPos().getY() + 1, be.getPos().getZ() + 1);
+            RenderUtils.drawSolidBox(matrixStack, potBox, 0x995F352B, false);
         }
     }
 

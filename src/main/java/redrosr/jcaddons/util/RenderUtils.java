@@ -1,112 +1,101 @@
 package redrosr.jcaddons.util;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gl.ShaderProgramKeys;
-import net.minecraft.client.gl.VertexBuffer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
+
 import redrosr.jcaddons.JCAddons;
+import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 
 public class RenderUtils {
 
-    public static void drawSolidBox(Box bb, MatrixStack matrixStack) {
-        float minX = (float) bb.minX;
-        float minY = (float) bb.minY;
-        float minZ = (float) bb.minZ;
-        float maxX = (float) bb.maxX;
-        float maxY = (float) bb.maxY;
-        float maxZ = (float) bb.maxZ;
+    public static final RenderPipeline ESP_QUADS_PIPELINE = RenderPipelines
+            .register(RenderPipeline.builder(RenderPipelines.POSITION_COLOR_SNIPPET)
+                    .withLocation(Identifier.of("wurst:pipeline/wurst_esp_quads"))
+                    .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST).build());
 
-        Matrix4f matrix = matrixStack.peek().getPositionMatrix();
-        RenderSystem.setShader(ShaderProgramKeys.POSITION);
-        Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
+    public static final RenderPipeline QUADS_PIPELINE = RenderPipelines
+            .register(RenderPipeline.builder(RenderPipelines.POSITION_COLOR_SNIPPET)
+                    .withLocation(Identifier.of("wurst:pipeline/wurst_quads"))
+                    .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
+                    .build());
 
-        bufferBuilder.vertex(matrix, minX, minY, minZ);
-        bufferBuilder.vertex(matrix, maxX, minY, minZ);
-        bufferBuilder.vertex(matrix, maxX, minY, maxZ);
-        bufferBuilder.vertex(matrix, minX, minY, maxZ);
+    public static final RenderLayer.MultiPhase QUADS = RenderLayer.of(
+            "wurst:quads", 1536, false, true, QUADS_PIPELINE,
+            RenderLayer.MultiPhaseParameters.builder().build(false));
 
-        bufferBuilder.vertex(matrix, minX, maxY, minZ);
-        bufferBuilder.vertex(matrix, minX, maxY, maxZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, maxZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, minZ);
+    public static final RenderLayer.MultiPhase ESP_QUADS = RenderLayer.of(
+            "wurst:esp_quads", 1536, false, true, ESP_QUADS_PIPELINE,
+            RenderLayer.MultiPhaseParameters.builder().build(false));
 
-        bufferBuilder.vertex(matrix, minX, minY, minZ);
-        bufferBuilder.vertex(matrix, minX, maxY, minZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, minZ);
-        bufferBuilder.vertex(matrix, maxX, minY, minZ);
+    public static void drawSolidBox(MatrixStack matrices, Box box, int color,
+                                    boolean depthTest)
+    {
+        VertexConsumerProvider.Immediate vcp = getVCP();
+        RenderLayer layer = depthTest ? QUADS : ESP_QUADS;
+        VertexConsumer buffer = vcp.getBuffer(layer);
 
-        bufferBuilder.vertex(matrix, maxX, minY, minZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, minZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, maxZ);
-        bufferBuilder.vertex(matrix, maxX, minY, maxZ);
+        drawSolidBox(matrices, buffer, box.offset(getCameraPos().negate()),
+                color);
 
-        bufferBuilder.vertex(matrix, minX, minY, maxZ);
-        bufferBuilder.vertex(matrix, maxX, minY, maxZ);
-        bufferBuilder.vertex(matrix, maxX, maxY, maxZ);
-        bufferBuilder.vertex(matrix, minX, maxY, maxZ);
-
-        bufferBuilder.vertex(matrix, minX, minY, minZ);
-        bufferBuilder.vertex(matrix, minX, minY, maxZ);
-        bufferBuilder.vertex(matrix, minX, maxY, maxZ);
-        bufferBuilder.vertex(matrix, minX, maxY, minZ);
-
-        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        vcp.draw(layer);
     }
 
-    public static void drawSolidBox(Box bb, VertexBuffer vertexBuffer) {
-        Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
-        drawSolidBox(bb, bufferBuilder);
-        BuiltBuffer buffer = bufferBuilder.end();
-
-        vertexBuffer.bind();
-        vertexBuffer.upload(buffer);
-        VertexBuffer.unbind();
+    public static void drawSolidBox(VertexConsumer buffer, Box box, int color)
+    {
+        drawSolidBox(new MatrixStack(), buffer, box, color);
     }
 
-    public static void drawSolidBox(Box bb, BufferBuilder bufferBuilder) {
-        float minX = (float) bb.minX;
-        float minY = (float) bb.minY;
-        float minZ = (float) bb.minZ;
-        float maxX = (float) bb.maxX;
-        float maxY = (float) bb.maxY;
-        float maxZ = (float) bb.maxZ;
+    public static void drawSolidBox(MatrixStack matrices, VertexConsumer buffer,
+                                    Box box, int color)
+    {
+        MatrixStack.Entry entry = matrices.peek();
+        float x1 = (float)box.minX;
+        float y1 = (float)box.minY;
+        float z1 = (float)box.minZ;
+        float x2 = (float)box.maxX;
+        float y2 = (float)box.maxY;
+        float z2 = (float)box.maxZ;
 
-        bufferBuilder.vertex(minX, minY, minZ);
-        bufferBuilder.vertex(maxX, minY, minZ);
-        bufferBuilder.vertex(maxX, minY, maxZ);
-        bufferBuilder.vertex(minX, minY, maxZ);
+        buffer.vertex(entry, x1, y1, z1).color(color);
+        buffer.vertex(entry, x2, y1, z1).color(color);
+        buffer.vertex(entry, x2, y1, z2).color(color);
+        buffer.vertex(entry, x1, y1, z2).color(color);
 
-        bufferBuilder.vertex(minX, maxY, minZ);
-        bufferBuilder.vertex(minX, maxY, maxZ);
-        bufferBuilder.vertex(maxX, maxY, maxZ);
-        bufferBuilder.vertex(maxX, maxY, minZ);
+        buffer.vertex(entry, x1, y2, z1).color(color);
+        buffer.vertex(entry, x1, y2, z2).color(color);
+        buffer.vertex(entry, x2, y2, z2).color(color);
+        buffer.vertex(entry, x2, y2, z1).color(color);
 
-        bufferBuilder.vertex(minX, minY, minZ);
-        bufferBuilder.vertex(minX, maxY, minZ);
-        bufferBuilder.vertex(maxX, maxY, minZ);
-        bufferBuilder.vertex(maxX, minY, minZ);
+        buffer.vertex(entry, x1, y1, z1).color(color);
+        buffer.vertex(entry, x1, y2, z1).color(color);
+        buffer.vertex(entry, x2, y2, z1).color(color);
+        buffer.vertex(entry, x2, y1, z1).color(color);
 
-        bufferBuilder.vertex(maxX, minY, minZ);
-        bufferBuilder.vertex(maxX, maxY, minZ);
-        bufferBuilder.vertex(maxX, maxY, maxZ);
-        bufferBuilder.vertex(maxX, minY, maxZ);
+        buffer.vertex(entry, x2, y1, z1).color(color);
+        buffer.vertex(entry, x2, y2, z1).color(color);
+        buffer.vertex(entry, x2, y2, z2).color(color);
+        buffer.vertex(entry, x2, y1, z2).color(color);
 
-        bufferBuilder.vertex(minX, minY, maxZ);
-        bufferBuilder.vertex(maxX, minY, maxZ);
-        bufferBuilder.vertex(maxX, maxY, maxZ);
-        bufferBuilder.vertex(minX, maxY, maxZ);
+        buffer.vertex(entry, x1, y1, z2).color(color);
+        buffer.vertex(entry, x2, y1, z2).color(color);
+        buffer.vertex(entry, x2, y2, z2).color(color);
+        buffer.vertex(entry, x1, y2, z2).color(color);
 
-        bufferBuilder.vertex(minX, minY, minZ);
-        bufferBuilder.vertex(minX, minY, maxZ);
-        bufferBuilder.vertex(minX, maxY, maxZ);
-        bufferBuilder.vertex(minX, maxY, minZ);
+        buffer.vertex(entry, x1, y1, z1).color(color);
+        buffer.vertex(entry, x1, y1, z2).color(color);
+        buffer.vertex(entry, x1, y2, z2).color(color);
+        buffer.vertex(entry, x1, y2, z1).color(color);
+    }
+
+    public static VertexConsumerProvider.Immediate getVCP()
+    {
+        return JCAddons.minecraftClient.getBufferBuilders().getEntityVertexConsumers();
     }
 
     public static Vec3d getCameraPos() {

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 
+import java.net.URI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,72 +59,80 @@ public class ChatUtils {
 
     /**
      * Creates a hoverable text component.
-     *
-     * @param text      The main text.
+     * @param text The main text.
      * @param hoverText The text to show on hover.
      * @return The formatted Text component.
      */
     public static Text hoverableText(String text, String hoverText) {
         return Text.literal(translateColorCodes(text))
-            .setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(translateColorCodes(hoverText))))
-            );
+                .styled(style -> style.withHoverEvent(
+                        new HoverEvent.ShowText(Text.literal(translateColorCodes(hoverText))))
+                );
     }
 
     /**
      * Creates a clickable text component.
-     *
-     * @param text    The main text.
+     * @param text The main text.
      * @param command The command to run when clicked.
      * @return The formatted Text component.
      */
     public static Text clickableText(String text, String command) {
         return Text.literal(translateColorCodes(text))
-            .setStyle(Style.EMPTY.withClickEvent(
-                new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-            );
+                .styled(style -> style.withClickEvent(
+                        new ClickEvent.RunCommand(command))
+                );
     }
 
     /**
      * Creates a text component that suggests text when clicked.
-     *
-     * @param text       The main text.
+     * @param text The main text.
      * @param suggestion The text to suggest when clicked.
      * @return The formatted Text component.
      */
     public static Text suggestableText(String text, String suggestion) {
         return Text.literal(translateColorCodes(text))
-            .setStyle(Style.EMPTY.withClickEvent(
-                new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, suggestion))
-            );
+                .styled(style -> style.withClickEvent(
+                        new ClickEvent.SuggestCommand(suggestion))
+                );
     }
 
     /**
      * Creates a text component that opens a URL when clicked.
-     *
      * @param text The main text.
-     * @param url  The URL to open.
+     * @param url The URL to open.
      * @return The formatted Text component.
      */
     public static Text urlText(String text, String url) {
+        URI uri = URI.create(url);
         return Text.literal(translateColorCodes(text))
-            .setStyle(Style.EMPTY.withClickEvent(
-                new ClickEvent(ClickEvent.Action.OPEN_URL, url))
-            );
+                .styled(style -> style.withClickEvent(
+                        new ClickEvent.OpenUrl(uri))
+                );
     }
 
     /**
      * Creates an item hoverable text component.
-     *
      * @param text The main text.
      * @param item The item stack to show.
      * @return The formatted Text component.
      */
     public static Text itemHoverText(String text, ItemStack item) {
         return Text.literal(translateColorCodes(text))
-            .setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackContent(item)))
-            );
+                .styled(style -> style.withHoverEvent(
+                        new HoverEvent.ShowItem(item))
+                );
+    }
+
+    /**
+     * Creates an item hoverable text component.
+     * @param text The main text.
+     * @param item The item stack to show.
+     * @return The formatted Text component.
+     */
+    public static Text itemHoverText(Text text, ItemStack item) {
+        return text.copy().styled(style -> style.withHoverEvent(
+                new HoverEvent.ShowItem(item))
+        );
     }
 
     /**
