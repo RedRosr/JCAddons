@@ -16,21 +16,21 @@ public class RenderUtils {
 
     public static final RenderPipeline ESP_QUADS_PIPELINE = RenderPipelines
             .register(RenderPipeline.builder(RenderPipelines.POSITION_COLOR_SNIPPET)
-                    .withLocation(Identifier.of("wurst:pipeline/wurst_esp_quads"))
+                    .withLocation(Identifier.of("jcaddons:pipeline/jcaddons_esp_quads"))
                     .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST).build());
 
     public static final RenderPipeline QUADS_PIPELINE = RenderPipelines
             .register(RenderPipeline.builder(RenderPipelines.POSITION_COLOR_SNIPPET)
-                    .withLocation(Identifier.of("wurst:pipeline/wurst_quads"))
+                    .withLocation(Identifier.of("jcaddons:pipeline/jcaddons_quads"))
                     .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
                     .build());
 
     public static final RenderLayer.MultiPhase QUADS = RenderLayer.of(
-            "wurst:quads", 1536, false, true, QUADS_PIPELINE,
+            "jcaddons:quads", 1536, false, true, QUADS_PIPELINE,
             RenderLayer.MultiPhaseParameters.builder().build(false));
 
     public static final RenderLayer.MultiPhase ESP_QUADS = RenderLayer.of(
-            "wurst:esp_quads", 1536, false, true, ESP_QUADS_PIPELINE,
+            "jcaddons:esp_quads", 1536, false, true, ESP_QUADS_PIPELINE,
             RenderLayer.MultiPhaseParameters.builder().build(false));
 
     public static void drawSolidBox(MatrixStack matrices, Box box, int color,
